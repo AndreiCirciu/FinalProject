@@ -102,27 +102,33 @@ export class AddMedicine extends Component {
         return (          
             <Fragment>
                 <AdminDashboard />
-                <div> Add Medicine </div>
-                <br />
+                <div> <strong> Add Medicine </strong> </div>                
                 <label> Name </label>
+                <br />
                 <input type="text" id='txtName' placeholder="Enter Name" onChange={(e) => this.handleNameChange(e.target.value)} />
-                <br /><br />
+                <br />
                 <label> Company Name </label>
+                <br />
                 <input type="text" id='txtCompanyName' placeholder="Enter Company Name" onChange={(e) => this.handleCompanyNameChange(e.target.value)} />
-                <br /><br />
+                <br />
                 <label> Price </label>
+                <br />
                 <input type="text" id='txtPrice' placeholder="Enter Price" onChange={(e) => this.handlePriceChange(e.target.value)} />
-                <br /><br />
+                <br />
                 <label> Quantity </label>
+                <br />
                 <input type="text" id='txtQuantity' placeholder="Enter Quantity" onChange={(e) => this.handleQuantityChange(e.target.value)} />
-                <br /><br />
+                <br />
                 <label> Image URL </label>
+                <br />
                 <input type="text" id='txtImageUrl' placeholder="Enter Image URL" onChange={(e) => this.handleImageUrlChange(e.target.value)} />
-                <br /><br />
+                <br />
                 <label> Uses </label>
+                <br />
                 <input type="text" id='txtUses' placeholder="Uses" onChange={(e) => this.handleUsesChange(e.target.value)} />
-                <br /><br />
+                <br />
                 <label> Expiration Date </label>
+                <br />
                 <input type="text" id='txtExpirationDate' placeholder="Uses" onChange={(e) => this.handleIsExpirationDateChange(e.target.value)} />
                 <br /><br />
                 <button onClick={() => this.handleSave()}> Save </button>

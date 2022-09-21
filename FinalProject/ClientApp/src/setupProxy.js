@@ -10,7 +10,10 @@ const context =  [
     "api/Auth/login",
     "/api/Account/getAllAccounts",
     "/api/Account/addAccount",
-    "/api/Medicine/addMedicine"
+    "/api/Medicine/addMedicine",
+    "/api/Medicine/getAllMedicine",
+    "/api/Medicine/getMedicineById",
+    "/api/Medicine/deleteMedicineById",
 ];
 
 module.exports = function(app) {

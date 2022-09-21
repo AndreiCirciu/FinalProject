@@ -11,18 +11,14 @@ import { PortalLayout } from './components/PortalLayout';
 import { AdminDashboard } from './components/AdminDashboard';
 import { AddMedicine } from './components/AddMedicine';
 import { useNavigate } from 'react-router-dom';
+import { UpdateMedicine } from './components/UpdateMedicine';
+import { DeleteMedicine } from './components/DeleteMedicine';
 
 import './custom.css'
 
 export default class App extends Component {
     static displayName = App.name;
-    componentDidMount() {
-        setTimeout(() => {
-            this.props.navigate("/registration");
-        }, 5000);
-        
-
-    }
+    
 
   render () {
       return (
@@ -36,6 +32,8 @@ export default class App extends Component {
                   <Route path='/setAccount' element={<SetAccount />} />
                   <Route path='/adminDashboard' element={<AdminDashboard />} />
                   <Route path='/addMedicine' element={<AddMedicine />} />
+                  <Route path='/updateMedicine' element={<UpdateMedicine />} />
+                  <Route path='/deleteMedicine' element={<DeleteMedicine />} />
               </Routes>
                
       </>

@@ -71,6 +71,7 @@ namespace FinalProject.Controllers
             dbMedicine.Price = request.Price;
             dbMedicine.Quantity = request.Quantity;
             dbMedicine.Uses = request.Uses;
+            dbMedicine.ExpirationDate = request.ExpirationDate;
 
             await _context.SaveChangesAsync();
 
