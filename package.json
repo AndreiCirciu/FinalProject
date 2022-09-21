@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.2.1",
+    "react-navigation": "^4.4.4"
+  }
+}
