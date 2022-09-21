@@ -9,7 +9,8 @@ const context =  [
     "/api/Auth/register",
     "api/Auth/login",
     "/api/Account/getAllAccounts",
-    "/api/Account/addAccount"
+    "/api/Account/addAccount",
+    "/api/Medicine/addMedicine"
 ];
 
 module.exports = function(app) {

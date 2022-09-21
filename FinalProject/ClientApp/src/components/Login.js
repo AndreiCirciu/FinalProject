@@ -6,7 +6,8 @@ export class Login extends Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            error: 0
         };
     }
 
@@ -32,8 +33,8 @@ export class Login extends Component {
             },
             body: JSON.stringify(data)
         });
-
-        console.log(response);
+        console.log(result.status);
+        
         console.log(JSON.stringify(response));
         const result = await response;
         console.log(result.status);
@@ -42,6 +43,7 @@ export class Login extends Component {
         localStorage.setItem('jwtToken', jwtToken.jwtToken);
         console.log(result.statusText);
         this.setState({ error: result.status });
+        
     }
 
     handleUsernameChange = (value) => {
@@ -53,10 +55,10 @@ export class Login extends Component {
     }
 
     render() {
-        //let content = this.state.error == 400 ? <p><em>User already exists.</em></p> : (this.state.error != 0 ? <Navigate to="/login" /> : <p></p>);
+        let content = this.state.error === 200 ? <Navigate to="/registration" /> : (this.state.error === 400 ?  <p><em>Username or Password were incorrect.</em></p> : <p></p>);
         return (
             <Fragment>
-                {/*// {content}*/}
+                 {content}
                 <div> LOGIN </div>
                 <label> Username </label>
 

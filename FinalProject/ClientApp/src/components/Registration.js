@@ -7,7 +7,8 @@ export class Registration extends Component {
         super(props);
         this.state = {
             username : '',
-            password: ''
+            password: '',
+            error: 0
             
         };
     }
@@ -61,10 +62,10 @@ export class Registration extends Component {
     
 
     render() {
-        //let content = this.state.error == 400 ? <p><em>User already exists.</em></p> : (this.state.error != 0 ? <Navigate to="/login" /> : <p></p>);
+        let content = this.state.error == 400 ? <p><em>User already exists.</em></p> : (this.state.error == 200 ? <Navigate to="/SetAccount" /> : <p></p>);
         return (           
             <Fragment>
-               {/*// {content}*/}
+                {content}
                 <div> Register </div>                
                 <label> Username </label>
                 
