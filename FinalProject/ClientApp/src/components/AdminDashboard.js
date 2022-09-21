@@ -3,6 +3,7 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link, Navigate } from 'react-router-dom';
 import './NavMenu.css';
 
+
 export class AdminDashboard extends Component {
     static displayName = AdminDashboard.name;
 
@@ -48,7 +49,7 @@ export class AdminDashboard extends Component {
                                     <NavLink tag={Link} className="text-dark" to="/deleteMedicine">Delete Medicine</NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/viewCustomer">View customer/user details</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/viewUsers">View customer/user details</NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
                                     <NavLink tag={Link} className="text-dark" to="/generateReports">Generate Reports</NavLink>

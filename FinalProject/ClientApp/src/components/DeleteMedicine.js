@@ -9,14 +9,7 @@ export class DeleteMedicine extends Component {
         this.state = {
             medicines: [], loading: true,
             id: '',
-            name: '',
-            companyName: '',
-            price: 0,
-            quantity: 0,
-            image: '',
-            uses: '',
-            expirationDate: '',
-            error: 0
+            
         };
     }
 
@@ -60,17 +53,7 @@ export class DeleteMedicine extends Component {
         this.setState({ id: value });
     }
 
-    handleCompanyNameChange = (value) => {
-        this.setState({ companyname: value })
-    }
-
-    handlePriceChange = (value) => {
-        this.setState({ price: value });
-    }
-
-    handleQuantityChange = (value) => {
-        this.setState({ quantity: value })
-    }
+    
 
     render() {
         let contents = this.state.loading ? <p><em>Loading...</em></p> : DeleteMedicine.renderMedicineTable(this.state.medicines);
@@ -79,7 +62,7 @@ export class DeleteMedicine extends Component {
             <Fragment>
                 <AdminDashboard />
                 <div>
-                    <h1 id="tabelLabel" >Update Medicine</h1>
+                    <h1 id="tabelLabel" >Delete Medicine</h1>
                     <p>Which medicine you want to delete?</p>
                     <label> ID </label>
                     <br />
@@ -95,63 +78,23 @@ export class DeleteMedicine extends Component {
         );
     }
     async handleSave() {
-        let data = {
-            id: this.state.id,
-            companyName: this.state.companyname,
-            price: this.state.price,
-            quantity: this.state.quantity
-            /*name: this.state.name,            
-            imageUrl: this.state.imageurl,
-            uses: this.state.uses,
-            expirationDate: this.state.expirationdate*/
-        }
-        let url = "https://localhost:44368/api/Medicine/getMedicineById" + "?id=" + this.state.id;
-        console.log(url);
-        console.log(JSON.stringify(data));
+        
+        let url = "https://localhost:44368/api/Medicine/deleteMedicineById" + "?id=" + this.state.id;
+        console.log(url);  
 
-        /*const response = await fetch('https://localhost:44368/api/Account/getAllAccounts');
-        const data2 = await response.json();
-        console.log(data2);*/
-
-        const responseGet = await fetch(url, {
-            method: 'GET',
+        const responseDelete = await fetch(url, {
+            method: 'DELETE',
             headers: {
-                'accept': 'text/plain',
+                'accept': 'text/plain'
             }
         });
-        const dataGet = await responseGet.json();
-        console.log(dataGet);
-        const resultGet = await responseGet;
-        console.log(resultGet.status);
-
-
-        let finalData = {
-            id: this.state.id,
-            name: dataGet.name,
-            companyName: this.state.companyname,
-            price: this.state.price,
-            quantity: this.state.quantity,
-            imageUrl: dataGet.imageUrl,
-            uses: dataGet.uses,
-            expirationDate: dataGet.expirationDate
-        }
-        let urlUpdateById = "https://localhost:44368/api/Medicine/updateMedicine";
-        const responsePut = await fetch(urlUpdateById, {
-            method: 'PUT',
-            headers: {
-                'accept': 'text/plain',
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(finalData)
-        });
-        console.log(finalData);
-        const resultPut = await responsePut;
-        console.log(resultPut.status);
+        window.location.reload();
 
     }
     async populateMedicineData() {
         const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine');
         const data = await response.json();
         this.setState({ medicines: data, loading: false });
+        
     }
 }

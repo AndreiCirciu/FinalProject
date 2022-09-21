@@ -13,6 +13,7 @@ import { AddMedicine } from './components/AddMedicine';
 import { useNavigate } from 'react-router-dom';
 import { UpdateMedicine } from './components/UpdateMedicine';
 import { DeleteMedicine } from './components/DeleteMedicine';
+import { ViewUsers } from './components/ViewUsers';
 
 import './custom.css'
 
@@ -34,6 +35,8 @@ export default class App extends Component {
                   <Route path='/addMedicine' element={<AddMedicine />} />
                   <Route path='/updateMedicine' element={<UpdateMedicine />} />
                   <Route path='/deleteMedicine' element={<DeleteMedicine />} />
+                  <Route path='/viewUsers' element={<ViewUsers />} />
+
               </Routes>
                
       </>
