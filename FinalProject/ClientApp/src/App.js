@@ -23,7 +23,7 @@ export default class App extends Component {
 
   render () {
       return (
-          <>       
+          <>    
               <Routes>
                   <Route path='/registration' element={<Registration />} />
                   <Route path='/login' element={<Login />} />             

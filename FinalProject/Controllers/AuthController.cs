@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -64,7 +65,9 @@ namespace FinalProject.Controllers
             }
 
             string token = CreateToken(creds);
-            return Ok(token);
+
+            var json = JsonConvert.SerializeObject(new { jwtToken = token });
+            return Ok(json);
         }
 
         private string CreateToken(User user)

@@ -28,14 +28,13 @@ export class Login extends Component {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'accept': 'text/plain',
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(data)
         });
         
         
-        console.log(JSON.stringify(response));
+        console.log(response);
         const result = await response;
 
         console.log(result.status);
@@ -43,8 +42,7 @@ export class Login extends Component {
         console.log(jwtToken.jwtToken);
         localStorage.setItem('jwtToken', jwtToken.jwtToken);
         console.log(result.statusText);
-        this.setState({ error: result.status });
-        
+        this.setState({ error: result.status });   
     }
 
     handleUsernameChange = (value) => {
@@ -56,7 +54,7 @@ export class Login extends Component {
     }
 
     render() {
-        let content = this.state.error === 200 ? <Navigate to="/registration" /> : (this.state.error === 400 ?  <p><em>Username or Password were incorrect.</em></p> : <p></p>);
+        let content = this.state.error === 200 ? <Navigate to="/adminDashboard" /> : (this.state.error === 400 ?  <p><em>Username or Password were incorrect.</em></p> : <p></p>);
         return (
             <Fragment>
                 {content}
