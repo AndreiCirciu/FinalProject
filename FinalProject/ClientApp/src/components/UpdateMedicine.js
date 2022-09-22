@@ -78,7 +78,7 @@ export class UpdateMedicine extends Component {
         return (
             <Fragment>
                 <AdminDashboard />
-                <div>
+                <div style={{ textAlign: 'center' }}>
                     <h1 id="tabelLabel" >Update Medicine</h1>
                     <p>Which medicine you want to update?</p>
                     <label> ID </label>

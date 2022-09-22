@@ -33,12 +33,12 @@ export class AdminDashboard extends Component {
         return (
             <header>
 
-
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-blue border-bottom box-shadow mb-3" light>
+               
+                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-blue border-bottom box-shadow mb-3 align-items-center" light>
                     <Container>
                         <NavbarToggler onClick={this.toggleNavbar} className="mr-6" />
-                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                            <ul className="navbar-nav flex-grow">
+                        <Collapse className="d-sm-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+                            <ul className="navbar-nav flex-grow " >
                                 <NavItem className="navbar-text">
                                     <NavLink tag={Link} className="text-dark" to="/addMedicine">Add Medicine</NavLink>
                                 </NavItem>

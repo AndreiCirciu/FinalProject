@@ -33,10 +33,11 @@ export class Login extends Component {
             },
             body: JSON.stringify(data)
         });
-        console.log(result.status);
+        
         
         console.log(JSON.stringify(response));
         const result = await response;
+
         console.log(result.status);
         let jwtToken = await result.json();
         console.log(jwtToken.jwtToken);
@@ -58,7 +59,8 @@ export class Login extends Component {
         let content = this.state.error === 200 ? <Navigate to="/registration" /> : (this.state.error === 400 ?  <p><em>Username or Password were incorrect.</em></p> : <p></p>);
         return (
             <Fragment>
-                 {content}
+                {content}
+                <div style={{ textAlign: 'center' }}>
                 <div> LOGIN </div>
                 <label> Username </label>
 
@@ -67,7 +69,8 @@ export class Login extends Component {
                 <label> Password </label>
                 <input type="text" id='txtPassword' placeholder="Enter Password" onChange={(e) => this.handlePasswordChange(e.target.value)} />
                 <br /><br />
-                <button onClick={() => this.handleSave()}> Save </button>
+                    <button onClick={() => this.handleSave()}> Save </button>
+                    </div>
             </Fragment>
         )
     }

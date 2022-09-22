@@ -66,6 +66,7 @@ export class Registration extends Component {
         return (           
             <Fragment>
                 {content}
+                <div style={{ textAlign: 'center' }}>
                 <div> Register </div>                
                 <label> Username </label>
                 
@@ -74,7 +75,8 @@ export class Registration extends Component {
                 <label> Password </label>                
                 <input type="text" id='txtPassword' placeholder="Enter Password" onChange={(e) => this.handlePasswordChange(e.target.value)} />
                 <br /><br />
-                <button onClick={() => this.handleSave()}> Save </button>
+                    <button onClick={() => this.handleSave()}> Save </button>
+                    </div>
                                
                 
             </Fragment>

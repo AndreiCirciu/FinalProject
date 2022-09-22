@@ -52,7 +52,7 @@ export class ViewUsers extends Component {
         return (
             <Fragment>
                 <AdminDashboard />
-                <div>
+                <div style={{ textAlign: 'center' }}>
                     <h1 id="tabelLabel" >All Users</h1>
                     {contents}
                 </div>

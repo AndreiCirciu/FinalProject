@@ -61,7 +61,7 @@ export class DeleteMedicine extends Component {
         return (
             <Fragment>
                 <AdminDashboard />
-                <div>
+                <div style={{ textAlign: 'center' }}>
                     <h1 id="tabelLabel" >Delete Medicine</h1>
                     <p>Which medicine you want to delete?</p>
                     <label> ID </label>

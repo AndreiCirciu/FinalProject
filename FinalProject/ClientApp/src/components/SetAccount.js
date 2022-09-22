@@ -84,6 +84,7 @@ export class SetAccount extends Component {
     render() {
         return (
             <Fragment>
+                <div style={{ textAlign: 'center' }}>
                 <div> Set your account </div>
                 <label> Firstname </label>
                 <input type="text" id='txtFirstName' placeholder="Enter Firstname" onChange={(e) => this.handleFirstNameChange(e.target.value)} />
@@ -114,7 +115,7 @@ export class SetAccount extends Component {
                 <br />
                 <br />
                 <button onClick={() => this.handleSave()}> Save </button>
-                
+                </div>
             </Fragment>
         )
     }

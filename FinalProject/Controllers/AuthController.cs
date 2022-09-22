@@ -27,6 +27,11 @@ namespace FinalProject.Controllers
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
+            if(!await VerifyUsername(request.UserName))
+            {
+                return BadRequest("An user with that username already exists");
+            }
+
             user.Username = request.UserName;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
@@ -41,17 +46,24 @@ namespace FinalProject.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserDto request)
         {
-            if (user.Username != request.UserName)
+            var creds = await _context.Users.FirstOrDefaultAsync(e => e.Username == request.UserName);
+
+            if(creds == null)
+            {
+                return BadRequest("No user");
+            }
+
+            if (creds.Username != request.UserName)
             {
                 return BadRequest("User not found.");
             }
 
-            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            if (!VerifyPasswordHash(request.Password, creds.PasswordHash, creds.PasswordSalt))
             {
                 return BadRequest("Incorrect Password");
             }
 
-            string token = CreateToken(user);
+            string token = CreateToken(creds);
             return Ok(token);
         }
 
@@ -86,13 +98,19 @@ namespace FinalProject.Controllers
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            using (var hmac = new HMACSHA512(user.PasswordSalt))
+            using (var hmac = new HMACSHA512(passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes((string)password));
                 return computedHash.SequenceEqual(passwordHash);
             }
         }
+        private async Task<bool> VerifyUsername(string username)
+        {
+            var creds = await _context.Users.FirstOrDefaultAsync(e => e.Username == username);
 
+            return creds == null;
+
+        }
 
 
 

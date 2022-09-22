@@ -102,6 +102,7 @@ export class AddMedicine extends Component {
         return (          
             <Fragment>
                 <AdminDashboard />
+                <div style={{ textAlign: 'center' }}>
                 <div> <strong> Add Medicine </strong> </div>                
                 <label> Name </label>
                 <br />
@@ -132,7 +133,7 @@ export class AddMedicine extends Component {
                 <input type="text" id='txtExpirationDate' placeholder="Uses" onChange={(e) => this.handleIsExpirationDateChange(e.target.value)} />
                 <br /><br />
                 <button onClick={() => this.handleSave()}> Save </button>
-
+                    </div>
             </Fragment>
         )
     }
