@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Controllers
 {
@@ -36,6 +37,7 @@ namespace FinalProject.Controllers
             user.Username = request.UserName;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.isAdmin = request.isAdmin;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -53,7 +55,7 @@ namespace FinalProject.Controllers
             {
                 return BadRequest("No user");
             }
-
+            
             if (creds.Username != request.UserName)
             {
                 return BadRequest("User not found.");
@@ -74,12 +76,14 @@ namespace FinalProject.Controllers
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
+                new Claim(ClaimTypes.Name, user.Username), 
+                new Claim(ClaimTypes.Role, user.isAdmin == 1 ? "Admin" : "User")
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
 
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+            SigningCredentials cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityToken(
                 claims: claims,

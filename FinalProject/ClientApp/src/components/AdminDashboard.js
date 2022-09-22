@@ -40,23 +40,28 @@ export class AdminDashboard extends Component {
                         <Collapse className="d-sm-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow " >
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/addMedicine">Add Medicine</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/addMedicine"><div style={{ fontSize: '22px' }}>Add Medicine</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/updateMedicine">Update Medicine</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/updateMedicine"><div style={{ fontSize: '22px' }}>Update Medicine</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/deleteMedicine">Delete Medicine</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/deleteMedicine"><div style={{ fontSize: '22px' }}>Delete Medicine</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/viewUsers">View customer/user details</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/viewUsers"><div style={{ fontSize: '22px' }}>View customer/user details</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/generateReports">Generate Reports</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/generateReports"><div style={{ fontSize: '22px' }}>Generate Reports</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/logOut">Logout</NavLink>
-                                </NavItem>                                
+                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '22px' }}>Logout</div></NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <div style={{ color: 'lightgreen' }}>waadawwadwwa </div>
+                                </NavItem>
+                                
+
                             </ul>
                         </Collapse>
                     </Container>

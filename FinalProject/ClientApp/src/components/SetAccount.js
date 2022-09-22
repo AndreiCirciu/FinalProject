@@ -11,7 +11,8 @@ export class SetAccount extends Component {
             phone: '',
             address: '',
             funds: 0,
-            isadmin:0
+            isadmin: 0,
+            error:0
         };
     }
 
@@ -82,8 +83,10 @@ export class SetAccount extends Component {
 
 
     render() {
+        let content = this.state.error == 400 ? <p><em>User already exists.</em></p> : (this.state.error == 200 ? <Navigate to="/Login" /> : <p></p>);
         return (
             <Fragment>
+                {content}
                 <div style={{ textAlign: 'center' }}>
                 <div> Set your account </div>
                 <label> Firstname </label>

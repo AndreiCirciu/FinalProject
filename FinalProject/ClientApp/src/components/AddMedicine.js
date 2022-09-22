@@ -2,11 +2,13 @@
 import { Route, Navigate, useNavigate } from 'react-router-dom';
 import { AdminDashboard } from './AdminDashboard';
 export class AddMedicine extends Component {
+    static displayName = AddMedicine.name;
 
 
     constructor(props) {
         super(props);
         this.state = {
+            medicines: [], loading: true,
             name: '',
             companyName: '',
             price: 0,
@@ -17,6 +19,42 @@ export class AddMedicine extends Component {
             error: 0
         };
     }
+    componentDidMount() {
+        this.populateMedicineData();
+    }
+
+    static renderMedicineTable(medicines) {
+        return (
+            <table className='table table-striped' aria-labelledby="tabelLabel">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Company Name</th>
+                        <th>Price</th>
+                        <th> Quantity</th>
+                        <th>Image URL</th>
+                        <th>Uses (F)</th>
+                        <th>Expiration Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {medicines.map(medicines =>
+                        <tr key={medicines.id}>
+                            <td>{medicines.id}</td>
+                            <td>{medicines.name}</td>
+                            <td>{medicines.companyName}</td>
+                            <td>{medicines.price}</td>
+                            <td>{medicines.quantity}</td>
+                            <td>{medicines.imageUrl}</td>
+                            <td>{medicines.uses}</td>
+                            <td>{medicines.expirationDate}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        );
+    }    
 
     async handleSave() {
         let data = {
@@ -53,9 +91,7 @@ export class AddMedicine extends Component {
         const result = await response;
         console.log(result.status);
         this.setState({ error: result.status });
-        /*if (response === 200) {
-           navigate("/SetAccount");
-        }   */
+        window.location.reload();
 
     }
 
@@ -98,6 +134,7 @@ export class AddMedicine extends Component {
 </div>*/
 
     render() {
+        let contents = this.state.loading ? <p><em>Loading...</em></p> : AddMedicine.renderMedicineTable(this.state.medicines);
      
         return (          
             <Fragment>
@@ -132,10 +169,20 @@ export class AddMedicine extends Component {
                 <br />
                 <input type="text" id='txtExpirationDate' placeholder="Uses" onChange={(e) => this.handleIsExpirationDateChange(e.target.value)} />
                 <br /><br />
-                <button onClick={() => this.handleSave()}> Save </button>
-                    </div>
+                    <button onClick={() => this.handleSave()}> Save </button>
+                    <br />
+                    <br />
+                    <br />
+                    {contents}
+                </div>
             </Fragment>
         )
+    }
+    async populateMedicineData() {
+        const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine');
+        const data = await response.json();
+        this.setState({ medicines: data, loading: false });
+
     }
 
 }

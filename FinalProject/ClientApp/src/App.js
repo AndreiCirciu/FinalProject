@@ -23,7 +23,8 @@ export default class App extends Component {
 
   render () {
       return (
-          <>    
+          <>
+              <div style={{ height: '100vh', backgroundColor: 'lightgreen' }}>
               <Routes>
                   <Route path='/registration' element={<Registration />} />
                   <Route path='/login' element={<Login />} />             
@@ -38,7 +39,7 @@ export default class App extends Component {
                   <Route path='/viewUsers' element={<ViewUsers />} />
 
               </Routes>
-               
+               </div>
       </>
 
 

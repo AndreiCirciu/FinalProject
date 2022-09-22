@@ -1,5 +1,4 @@
-﻿using FinalProject.Data;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.Controllers
@@ -61,7 +60,8 @@ namespace FinalProject.Controllers
         public async Task<ActionResult<List<Account>>> UpdateAccount(Account request)
         {
             var dbAccount = await _context.Accounts.FindAsync(request.ID);
-            if (dbAccount == null)
+            var dbUser = await _context.Users.FindAsync(request.ID);
+            if (dbAccount == null || dbUser == null)
                 return BadRequest("Account not found.");
             dbAccount.FirstName = request.FirstName;
             dbAccount.LastName = request.LastName;
@@ -70,13 +70,15 @@ namespace FinalProject.Controllers
             dbAccount.Address = request.Address;
             dbAccount.Funds = request.Funds;
             dbAccount.IsAdmin = request.IsAdmin;
+            dbUser.isAdmin = request.IsAdmin;
 
             await _context.SaveChangesAsync();
 
             return Ok(await _context.Accounts.ToListAsync());
         }
-
+        
         [HttpGet("getAllAccounts")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Account>>> Get()
         {
             return Ok(await _context.Accounts.ToListAsync());

@@ -20,8 +20,6 @@ export class Sign extends Component {
         this.props.navigation.navigate('/registration');
     }
 
-
-
     toggleNavbar() {
         this.setState({
             collapsed: !this.state.collapsed
@@ -40,10 +38,13 @@ export class Sign extends Component {
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem className ="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/registration">User</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '22px' }}>User</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/login">Admin</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '22px' }}>Admin</div></NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <div style={{ color: 'white' }}>waadawawdawdwadwadhidwadgwajhdgwahjdgwahjdgwadwadwadwadwadwwadwwa </div>
                                 </NavItem>
                             </ul>
                         </Collapse>

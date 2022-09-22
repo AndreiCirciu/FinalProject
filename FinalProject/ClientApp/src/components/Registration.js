@@ -1,5 +1,8 @@
 ﻿import React, { Component, Fragment } from 'react';
-import { Route, Navigate, useNavigate } from 'react-router-dom';
+import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Link, Navigate } from 'react-router-dom';
+import './NavMenu.css';
+
 export class Registration extends Component {
 
     
@@ -8,6 +11,7 @@ export class Registration extends Component {
         this.state = {
             username : '',
             password: '',
+            isadmin: 0,
             error: 0
             
         };
@@ -16,7 +20,8 @@ export class Registration extends Component {
     async handleSave() {
         let data = {
             userName: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            isAdmin: this.state.isadmin
         }       
 
 
@@ -66,8 +71,26 @@ export class Registration extends Component {
         return (           
             <Fragment>
                 {content}
+                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-blue border-bottom box-shadow mb-3" light>
+                    <Container>
+                        <NavbarToggler onClick={this.toggleNavbar} className="mr-6" />
+                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+                            <ul className="navbar-nav flex-grow">
+                                <NavItem className="navbar-text">
+                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '20px' }}>Register</div></NavLink>
+                                </NavItem>
+                                <NavItem className="navbar-text">
+                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '20px' }}>Login</div></NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <div style={{ color: 'lightgreen' }}>waadawawdawdwadwawadgwajhdgwahjdgwahjdgwadwadwadwadwadwwadwwa </div>
+                                </NavItem>
+                            </ul>
+                        </Collapse>
+                    </Container>
+                </Navbar>
                 <div style={{ textAlign: 'center' }}>
-                <div> Register </div>                
+                <div><strong> Register </strong></div>                
                 <label> Username </label>
                 
                 <input type="text" id='txtName' placeholder="Enter Username" onChange={(e) => this.handleUsernameChange(e.target.value)} />
