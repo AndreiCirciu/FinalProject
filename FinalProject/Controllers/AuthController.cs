@@ -119,6 +119,21 @@ namespace FinalProject.Controllers
 
         }
 
+        [HttpGet("getIfAdminOrUser")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Medicine>> GetByUses(string username)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(p => p.Username == username);
+            if(user == null)
+            {
+                return BadRequest("Username not found.");
+            }
+            var json = JsonConvert.SerializeObject(new { isadmin = user.isAdmin });
+            return Ok(json);
+             
+                            
+        }
+
 
 
     }

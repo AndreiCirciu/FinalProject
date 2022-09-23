@@ -84,6 +84,17 @@ namespace FinalProject.Controllers
             return Ok(await _context.Medicines.ToListAsync());
         }
 
+        [HttpGet("getMedicineByUses")]
+        public async Task<ActionResult<Medicine>> GetByUses(string uses)
+        {
+            var medicine = await _context.Medicines.FirstOrDefaultAsync(e => e.Uses == uses);
+            if(medicine == null)
+            {
+                return BadRequest("There was no medicine found for that use");
+            }
+            return Ok(medicine);
+        }
+
         [HttpGet("getMedicineById")]
         public async Task<ActionResult<Medicine>> Get(int id)
         {

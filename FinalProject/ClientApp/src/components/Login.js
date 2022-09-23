@@ -21,6 +21,10 @@ export class Login extends Component {
         }
 
         let url = "https://localhost:44368/api/Auth/login";
+        let secondPart = "?username=" + this.state.username;
+        let urlIsAdmin = "https://localhost:44368/api/Auth/getIfAdminOrUser" + secondPart;
+        console.log(urlIsAdmin);
+        
         console.log(url);
         console.log(JSON.stringify(data));
 
@@ -35,16 +39,32 @@ export class Login extends Component {
             },
             body: JSON.stringify(data)
         });
-        
-        
+
+        const responseIsAdmin = await fetch(urlIsAdmin, {
+            method: "GET",
+            headers: {
+                'accept': 'text/plain'
+            },
+
+        });        
+        console.log("RESPONSE");
         console.log(response);
+        console.log("RESPONSE ISADMIN");
+        console.log(responseIsAdmin);
         const result = await response;
+        const resultIsAdmin = await responseIsAdmin;
 
         console.log(result.status);
+
         let jwtToken = await result.json();
         console.log(jwtToken.jwtToken);
         localStorage.setItem('jwtToken', jwtToken.jwtToken);
         console.log(result.statusText);
+
+        let isadmin = await resultIsAdmin.json();
+        //console.log(isadmin.isadmin);
+        localStorage.setItem('isAdmin', isadmin.isadmin);
+        console.log(localStorage.getItem("isAdmin"));
         this.setState({ error: result.status });   
     }
 
@@ -67,10 +87,10 @@ export class Login extends Component {
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '20px' }}>Register</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '22px' }}>Register</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '20px' }}>Login</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '22px' }}>Login</div></NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <div style={{ color: 'lightgreen' }}> waadawawdawdwadwawadgwajhdgwahjdgwahjdgwadwadwadwadwadwwadwwa </div>

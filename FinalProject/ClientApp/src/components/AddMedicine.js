@@ -167,7 +167,7 @@ export class AddMedicine extends Component {
                 <br />
                 <label> Expiration Date </label>
                 <br />
-                <input type="text" id='txtExpirationDate' placeholder="Uses" onChange={(e) => this.handleIsExpirationDateChange(e.target.value)} />
+                    <input type="text" id='txtExpirationDate' placeholder="Expiration Date" onChange={(e) => this.handleIsExpirationDateChange(e.target.value)} />
                 <br /><br />
                     <button onClick={() => this.handleSave()}> Save </button>
                     <br />

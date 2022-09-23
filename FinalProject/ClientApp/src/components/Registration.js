@@ -71,16 +71,16 @@ export class Registration extends Component {
         return (           
             <Fragment>
                 {content}
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-blue border-bottom box-shadow mb-3" light>
+                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-blue border-bottom box-shadow mb-3 align-items-center" light>
                     <Container>
                         <NavbarToggler onClick={this.toggleNavbar} className="mr-6" />
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '20px' }}>Register</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '22px' }}>Register</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '20px' }}>Login</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '22px' }}>Login</div></NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <div style={{ color: 'lightgreen' }}>waadawawdawdwadwawadgwajhdgwahjdgwahjdgwadwadwadwadwadwwadwwa </div>

@@ -30,37 +30,61 @@ export class AdminDashboard extends Component {
     }
 
     render() {
+        let navbar;
+        if (localStorage.getItem("isAdmin") == 1) {
+            navbar =
+                <ul className="navbar-nav flex-grow ">
+                    <NavItem className="navbar-text">
+                    <NavLink tag={Link} className="text-dark" to="/addMedicine"><div style={{ fontSize: '20px', marginLeft: '5px'}}>Add Medicine</div></NavLink>
+                    </NavItem>
+                    <NavItem className="navbar-text">
+                    <NavLink tag={Link} className="text-dark" to="/updateMedicine"><div style={{ fontSize: '20px', marginLeft: '5px'}}>Update Medicine</div></NavLink>
+                    </NavItem>
+                    <NavItem className="navbar-text">
+                    <NavLink tag={Link} className="text-dark" to="/deleteMedicine"><div style={{ fontSize: '20px', marginLeft: '5px'}}>Delete Medicine</div></NavLink>
+                    </NavItem>
+                    <NavItem className="navbar-text">
+                    <NavLink tag={Link} className="text-dark" to="/viewUsers"><div style={{ fontSize: '20px', marginLeft: '5px'}}>View customer/user details</div></NavLink>
+                    </NavItem>
+                    <NavItem className="navbar-text">
+                    <NavLink tag={Link} className="text-dark" to="/generateReports"><div style={{ fontSize: '20px', marginLeft: '5px'}}>Generate Reports</div></NavLink>
+                    </NavItem>
+                </ul>
+        }
         return (
+            
+
+
             <header>
 
                
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-blue border-bottom box-shadow mb-3 align-items-center" light>
+                <Navbar className="navbar-expand-sm navbar-toggleable-lm ng-blue border-bottom box-shadow mb-3 align-items-center" style={{ width: '100%', textAlign:'center' }} light>
                     <Container>
-                        <NavbarToggler onClick={this.toggleNavbar} className="mr-6" />
-                        <Collapse className="d-sm-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                            <ul className="navbar-nav flex-grow " >
+                        <NavbarToggler onClick={this.toggleNavbar}/>
+                        <Collapse className="" isOpen={!this.state.collapsed} navbar>
+                            <ul className="navbar-nav flex-grow" style={{ backgroundSize:'' }}>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/addMedicine"><div style={{ fontSize: '22px' }}>Add Medicine</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/searchMedicine"><div style={{ fontSize: '20px'}}>Search for medicine</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/updateMedicine"><div style={{ fontSize: '22px' }}>Update Medicine</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/updateMedicine"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Buy Medicine</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/deleteMedicine"><div style={{ fontSize: '22px' }}>Delete Medicine</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/deleteMedicine"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Order Status</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/viewUsers"><div style={{ fontSize: '22px' }}>View customer/user details</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/viewUsers"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Edit Profile</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/generateReports"><div style={{ fontSize: '22px' }}>Generate Reports</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/generateReports"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Funds</div></NavLink>
                                 </NavItem>
-                                <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '22px' }}>Logout</div></NavLink>
+                                {navbar}
+                                <NavItem className="navbar-text" >
+                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Logout</div></NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <div style={{ color: 'lightgreen' }}>waadawwadwwa </div>
-                                </NavItem>
-                                
+                                    <div style={{ color: 'lightgreen' }}> </div>
+                                </NavItem>                               
 
                             </ul>
                         </Collapse>
