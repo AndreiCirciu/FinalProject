@@ -9,12 +9,17 @@ const context =  [
     "/api/Auth/register",
     "api/Auth/login",
     "/api/Auth/getIfAdminOrUser",
+    "/api/Auth/getUserId",
     "/api/Account/getAllAccounts",
     "/api/Account/addAccount",
     "/api/Medicine/addMedicine",
     "/api/Medicine/getAllMedicine",
     "/api/Medicine/getMedicineById",
-    "/api/Medicine/deleteMedicineById"    
+    "/api/Medicine/deleteMedicineById",
+    "/api/Medicine/getMedicineByUses",
+    "/api/Cart/addToCart",
+    "/api/Cart/removeFromCartByUserId",
+    "/api/Cart/getCartByUserId"
 ];
 
 module.exports = function(app) {

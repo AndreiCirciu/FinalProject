@@ -67,16 +67,16 @@ export class AdminDashboard extends Component {
                                     <NavLink tag={Link} className="text-dark" to="/searchMedicine"><div style={{ fontSize: '20px'}}>Search for medicine</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/updateMedicine"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Buy Medicine</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/viewCart"><div style={{ fontSize: '20px', marginLeft: '5px' }}>See Cart</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/deleteMedicine"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Order Status</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/orderStatus"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Order Status</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/viewUsers"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Edit Profile</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/editProfile"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Edit Profile</div></NavLink>
                                 </NavItem>
                                 <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/generateReports"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Funds</div></NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/funds"><div style={{ fontSize: '20px', marginLeft: '5px' }}>Funds</div></NavLink>
                                 </NavItem>
                                 {navbar}
                                 <NavItem className="navbar-text" >

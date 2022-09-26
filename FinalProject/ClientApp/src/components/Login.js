@@ -24,7 +24,7 @@ export class Login extends Component {
         let secondPart = "?username=" + this.state.username;
         let urlIsAdmin = "https://localhost:44368/api/Auth/getIfAdminOrUser" + secondPart;
         console.log(urlIsAdmin);
-        
+        let urlReturnId = "https://localhost:44368/api/Auth/getUserId" + secondPart;
         console.log(url);
         console.log(JSON.stringify(data));
 
@@ -46,26 +46,56 @@ export class Login extends Component {
                 'accept': 'text/plain'
             },
 
-        });        
+        });
+
+        const responseId = await fetch(urlReturnId, {
+            method: "GET",
+            headers: {
+                'accept': 'text/plain'
+            },
+        });
+
+/*      console.log(urlReturnId);
         console.log("RESPONSE");
         console.log(response);
         console.log("RESPONSE ISADMIN");
-        console.log(responseIsAdmin);
+        console.log(responseIsAdmin);*/
         const result = await response;
         const resultIsAdmin = await responseIsAdmin;
+        const user_id = await responseId;
 
         console.log(result.status);
 
+        //token
         let jwtToken = await result.json();
         console.log(jwtToken.jwtToken);
         localStorage.setItem('jwtToken', jwtToken.jwtToken);
+
+
         console.log(result.statusText);
 
+        //isAdmin
         let isadmin = await resultIsAdmin.json();
         //console.log(isadmin.isadmin);
         localStorage.setItem('isAdmin', isadmin.isadmin);
+        console.log("ESTE");
         console.log(localStorage.getItem("isAdmin"));
-        this.setState({ error: result.status });   
+
+
+        this.setState({ error: result.status });
+
+        console.log(urlReturnId);
+        console.log(isadmin); 
+        console.log(responseId);
+
+        let userid = await user_id.json();
+        localStorage.setItem("ID", userid.userid);
+        console.log("ESTE");
+        console.log(localStorage.getItem("ID"));
+
+        
+        
+
     }
 
     handleUsernameChange = (value) => {
@@ -109,7 +139,7 @@ export class Login extends Component {
                 <input type="text" id='txtPassword' placeholder="Enter Password" onChange={(e) => this.handlePasswordChange(e.target.value)} />
                 <br /><br />
                     <button onClick={() => this.handleSave()}> Save </button>
-                    </div>
+                </div>
             </Fragment>
         )
     }

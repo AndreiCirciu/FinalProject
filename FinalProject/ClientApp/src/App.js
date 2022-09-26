@@ -14,37 +14,39 @@ import { useNavigate } from 'react-router-dom';
 import { UpdateMedicine } from './components/UpdateMedicine';
 import { DeleteMedicine } from './components/DeleteMedicine';
 import { ViewUsers } from './components/ViewUsers';
-
+import { SearchMedicine } from './components/SearchMedicine';
+import { ViewCart } from './components/ViewCart';
 import './custom.css'
 
 export default class App extends Component {
     static displayName = App.name;
-    
-
-  render () {
-      return (
-          <>
-              <div style={{ height: '100vh', backgroundColor: 'lightgreen' }}>
-              <Routes>
-                  <Route path='/registration' element={<Registration />} />
-                  <Route path='/login' element={<Login />} />             
-                  <Route exact path='/' element={<Sign />} />
-                  <Route path='/counter' element={<Counter />} />
-                  <Route path='/fetch-data' element={<FetchData />} />
-                  <Route path='/setAccount' element={<SetAccount />} />
-                  <Route path='/adminDashboard' element={<AdminDashboard />} />
-                  <Route path='/addMedicine' element={<AddMedicine />} />
-                  <Route path='/updateMedicine' element={<UpdateMedicine />} />
-                  <Route path='/deleteMedicine' element={<DeleteMedicine />} />
-                  <Route path='/viewUsers' element={<ViewUsers />} />
-
-              </Routes>
-               </div>
-      </>
 
 
-    );
-  }
+    render() {
+        return (
+            <>
+                <div style={{ height: '100vh', backgroundColor: 'lightgreen' }}>
+                    <Routes>
+                        <Route path='/registration' element={<Registration />} />
+                        <Route path='/login' element={<Login />} />
+                        <Route exact path='/' element={<Sign />} />
+                        <Route path='/counter' element={<Counter />} />
+                        <Route path='/fetch-data' element={<FetchData />} />
+                        <Route path='/setAccount' element={<SetAccount />} />
+                        <Route path='/adminDashboard' element={<AdminDashboard />} />
+                        <Route path='/addMedicine' element={<AddMedicine />} />
+                        <Route path='/updateMedicine' element={<UpdateMedicine />} />
+                        <Route path='/deleteMedicine' element={<DeleteMedicine />} />
+                        <Route path='/viewUsers' element={<ViewUsers />} />
+                        <Route path='/searchMedicine' element={<SearchMedicine />} />
+                        <Route path='/viewCart' element={<ViewCart />} />
+                    </Routes>
+                </div>
+            </>
+
+
+        );
+    }
 }
 export function APPWithRouter(props) {
     const navigate = useNavigate()
