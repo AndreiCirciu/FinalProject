@@ -22,7 +22,7 @@ export class FetchData extends Component {
             <th>LastName</th>
             <th>DateOfBirth</th>
             <th>Phone</th>
-            <th>Address (F)</th>
+            <th>Address</th>
             <th>Funds</th>
             <th>IsAdmin</th>
           </tr>

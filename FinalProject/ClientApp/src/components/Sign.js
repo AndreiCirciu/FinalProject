@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link, Navigate } from 'react-router-dom';
 import './NavMenu.css';
+import { AdminDashboard } from './AdminDashboard';
 
 export class Sign extends Component {
     static displayName = Sign.name;
@@ -29,24 +28,7 @@ export class Sign extends Component {
     render() {
         return (
             <header>
-
-                {/*<input type="button" onClick=" value="Go to Google" />*/}
-
-                <Navbar className="navbar-expand-sm navbar-toggleable-lm ng-blue border-bottom box-shadow mb-3 align-items-center" style={{width:'100%'}} light>
-                    <Container>
-                        <NavbarToggler onClick={this.toggleNavbar} className="mr-6" />
-                        <Collapse isOpen={!this.state.collapsed} navbar>
-                            <ul className="navbar-nav flex-grow" style={{ backgroundSize: '' }}>
-                                <NavItem className ="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '22px' }}>Register</div></NavLink>
-                                </NavItem>
-                                <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '22px' }}>Login</div></NavLink>
-                                </NavItem>                                
-                            </ul>
-                        </Collapse>
-                    </Container>
-                </Navbar>
+                <AdminDashboard />
             </header>
         );
     }

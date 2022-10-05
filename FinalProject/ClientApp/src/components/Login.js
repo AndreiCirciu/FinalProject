@@ -2,6 +2,7 @@
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link, Navigate } from 'react-router-dom';
 import './NavMenu.css';
+import { AdminDashboard } from './AdminDashboard';
 
 export class Login extends Component {
 
@@ -88,14 +89,11 @@ export class Login extends Component {
         console.log(isadmin); 
         console.log(responseId);
 
+
         let userid = await user_id.json();
         localStorage.setItem("ID", userid.userid);
         console.log("ESTE");
         console.log(localStorage.getItem("ID"));
-
-        
-        
-
     }
 
     handleUsernameChange = (value) => {
@@ -108,27 +106,14 @@ export class Login extends Component {
 
     render() {
         let content = this.state.error === 200 ? <Navigate to="/adminDashboard" /> : (this.state.error === 400 ?  <p><em>Username or Password were incorrect.</em></p> : <p></p>);
+        //let resetIsAdmin = localStorage.getItem("isAdmin") == 1 ? localStorage.setItem("isAdmin", 4) : <p><em> </em> </p>;
+        console.log(localStorage.getItem("isAdmin"));
         return (
             <Fragment>
+                <AdminDashboard />
                 {content}
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-blue border-bottom box-shadow mb-3" light>
-                    <Container>
-                        <NavbarToggler onClick={this.toggleNavbar} className="mr-6" />
-                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                            <ul className="navbar-nav flex-grow">
-                                <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/registration"><div style={{ fontSize: '22px' }}>Register</div></NavLink>
-                                </NavItem>
-                                <NavItem className="navbar-text">
-                                    <NavLink tag={Link} className="text-dark" to="/login"><div style={{ fontSize: '22px' }}>Login</div></NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <div style={{ color: 'lightgreen' }}> waadawawdawdwadwawadgwajhdgwahjdgwahjdgwadwadwadwadwadwwadwwa </div>
-                                </NavItem>
-                            </ul>
-                        </Collapse>
-                    </Container>
-                </Navbar>
+                
+                
                 <div style={{ textAlign: 'center' }}>
                 <div><strong> Login </strong></div>
                 <label> Username </label>
@@ -136,7 +121,7 @@ export class Login extends Component {
                 <input type="text" id='txtName' placeholder="Enter Username" onChange={(e) => this.handleUsernameChange(e.target.value)} />
                 <br />
                 <label> Password </label>
-                <input type="text" id='txtPassword' placeholder="Enter Password" onChange={(e) => this.handlePasswordChange(e.target.value)} />
+                <input type="password" id='txtPassword' placeholder="Enter Password" onChange={(e) => this.handlePasswordChange(e.target.value)} />
                 <br /><br />
                     <button onClick={() => this.handleSave()}> Save </button>
                 </div>

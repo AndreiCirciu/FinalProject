@@ -33,9 +33,9 @@ export class UpdateMedicine extends Component {
                         <th>Name</th>
                         <th>Company Name</th>
                         <th>Price</th>
-                        <th> Quantity</th>
+                        <th>Quantity</th>
                         <th>Image URL</th>
-                        <th>Uses (F)</th>
+                        <th>Uses</th>
                         <th>Expiration Date</th>
                     </tr>
                 </thead>

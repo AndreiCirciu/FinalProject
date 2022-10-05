@@ -26,20 +26,22 @@ namespace FinalProject.Controllers
         {
             var dbAccount = await _context.Accounts.FindAsync(request.ID);
             var dbUser = await _context.Users.FindAsync(request.ID);
-            if (dbAccount == null || dbUser == null)
+            if (dbAccount == null)
                 return BadRequest("Account not found.");
             dbAccount.FirstName = request.FirstName;
             dbAccount.LastName = request.LastName;
             dbAccount.DateOfBirth = request.DateOfBirth;
             dbAccount.Phone = request.Phone;
             dbAccount.Address = request.Address;
-            dbAccount.Funds = request.Funds;
+            dbAccount.Funds += request.Funds;
             dbAccount.IsAdmin = request.IsAdmin;
-            dbUser.isAdmin = request.IsAdmin;
+            
+            if(dbUser != null)
+                dbUser.isAdmin = request.IsAdmin;
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Accounts.ToListAsync());
+            return Ok(dbAccount);
         }
         
         [HttpGet("getAllAccounts")]
@@ -50,7 +52,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("getAccountById")]
-        public async Task<ActionResult<Account>> Get(int id)
+        public async Task<ActionResult<Account>> GetAccountById(int id)
         {
             var account = await _context.Accounts.FindAsync(id);
             if (account == null)

@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authorization;
+using FinalProject.Controllers.Services;
 
 namespace FinalProject.Controllers
 {
@@ -14,22 +15,20 @@ namespace FinalProject.Controllers
     public class AuthController : ControllerBase
     {
         public static User user = new User();
-        private readonly IConfiguration _configuration;
         private readonly DataContext _context;
-
-        public AuthController(IConfiguration configuration, DataContext context)
+        private readonly IUsernameTokenManager _usernameTokenManager;
+        public AuthController(DataContext context, IUsernameTokenManager usernameTokenManager)
         {
-            _configuration = configuration;
             _context = context;
-
+            _usernameTokenManager = usernameTokenManager;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserDto request)
         {
-            CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            var(passwordHash, passwordSalt) = _usernameTokenManager.CreatePasswordHash(request.Password);
 
-            if(!await VerifyUsername(request.UserName))
+            if(!await _usernameTokenManager.VerifyUsername(request.UserName))
             {
                 return BadRequest("An user with that username already exists");
             }
@@ -61,63 +60,18 @@ namespace FinalProject.Controllers
                 return BadRequest("User not found.");
             }
 
-            if (!VerifyPasswordHash(request.Password, creds.PasswordHash, creds.PasswordSalt))
+            if (!_usernameTokenManager.VerifyPasswordHash(request.Password, creds.PasswordHash, creds.PasswordSalt))
             {
                 return BadRequest("Incorrect Password");
             }
 
-            string token = CreateToken(creds);
+            string token = _usernameTokenManager.CreateToken(creds);
 
             var json = JsonConvert.SerializeObject(new { jwtToken = token });
             return Ok(json);
         }
 
-        private string CreateToken(User user)
-        {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
-                new Claim(ClaimTypes.Name, user.Username), 
-                new Claim(ClaimTypes.Role, user.isAdmin == 1 ? "Admin" : "User")
-            };
-
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-
-            SigningCredentials cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: cred);
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return jwt;
-        }
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes((string)password));
-                return computedHash.SequenceEqual(passwordHash);
-            }
-        }
-        private async Task<bool> VerifyUsername(string username)
-        {
-            var creds = await _context.Users.FirstOrDefaultAsync(e => e.Username == username);
-
-            return creds == null;
-
-        }
+        
 
         [HttpGet("getIfAdminOrUser")]
         //[Authorize(Roles = "Admin")]

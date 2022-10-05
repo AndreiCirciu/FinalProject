@@ -16,6 +16,9 @@ import { DeleteMedicine } from './components/DeleteMedicine';
 import { ViewUsers } from './components/ViewUsers';
 import { SearchMedicine } from './components/SearchMedicine';
 import { ViewCart } from './components/ViewCart';
+import { OrderStatus } from './components/OrderStatus';
+import { UpdateAccount } from './components/UpdateAccount';
+import { GenerateReports } from './components/GenerateReports';
 import './custom.css'
 
 export default class App extends Component {
@@ -25,7 +28,7 @@ export default class App extends Component {
     render() {
         return (
             <>
-                <div style={{ height: '100vh', backgroundColor: 'lightgreen' }}>
+                <div style={{ height: '100vh' }}>
                     <Routes>
                         <Route path='/registration' element={<Registration />} />
                         <Route path='/login' element={<Login />} />
@@ -40,6 +43,9 @@ export default class App extends Component {
                         <Route path='/viewUsers' element={<ViewUsers />} />
                         <Route path='/searchMedicine' element={<SearchMedicine />} />
                         <Route path='/viewCart' element={<ViewCart />} />
+                        <Route path='/orderStatus' element={<OrderStatus />} />
+                        <Route path='/updateAccount' element={<UpdateAccount />} />
+                        <Route path='/generateReports' element={<GenerateReports />} />
                     </Routes>
                 </div>
             </>

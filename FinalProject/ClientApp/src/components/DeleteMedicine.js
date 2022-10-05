@@ -28,7 +28,7 @@ export class DeleteMedicine extends Component {
                         <th>Price</th>
                         <th> Quantity</th>
                         <th>Image URL</th>
-                        <th>Uses (F)</th>
+                        <th>Uses</th>
                         <th>Expiration Date</th>
                     </tr>
                 </thead>

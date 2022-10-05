@@ -12,6 +12,8 @@ const context =  [
     "/api/Auth/getUserId",
     "/api/Account/getAllAccounts",
     "/api/Account/addAccount",
+    "/api/Medicine/getAccountById",
+    "/api/Account/updateAccount",
     "/api/Medicine/addMedicine",
     "/api/Medicine/getAllMedicine",
     "/api/Medicine/getMedicineById",
@@ -19,7 +21,11 @@ const context =  [
     "/api/Medicine/getMedicineByUses",
     "/api/Cart/addToCart",
     "/api/Cart/removeFromCartByUserId",
-    "/api/Cart/getCartByUserId"
+    "/api/Cart/getCartByUserId",
+    "/api/Order/checkOut",
+    "/api/Order/getOrderByUserId",
+    "/api/Order/generateReports"
+
 ];
 
 module.exports = function(app) {

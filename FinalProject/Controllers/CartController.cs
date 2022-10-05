@@ -17,8 +17,8 @@ namespace FinalProject.Controllers
        // [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<List<Cart>>> GetCartByUserId(int id)
         {
-            var cart = await _context.Carts.Include(c=> c.Medicine).Where(c => c.UserId == id).ToListAsync();
-            return Ok(cart.Count == 0 ? 404 : cart);
+            var cart = await _context.Carts.Include(c=> c.Medicine).Where(c => c.UserId == id).ToArrayAsync();
+            return Ok(cart.Length == 0 ? 404 : cart);
         }
 
         [HttpPut("addToCart")]
@@ -26,7 +26,6 @@ namespace FinalProject.Controllers
         {
             var medicine = await _context.Medicines.FirstOrDefaultAsync(p => p.ID == medicineId);
             var user = await _context.Accounts.FirstOrDefaultAsync(u => u.ID == userId);
-
 
             if (medicine.Quantity <= 0)
             {

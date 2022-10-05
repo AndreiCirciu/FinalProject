@@ -75,11 +75,11 @@ namespace FinalProject.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Medicines.ToListAsync());
+            return Ok(dbMedicine);
         }
 
         [HttpGet("getAllMedicine")]
-        public async Task<ActionResult<List<Medicine>>> Get()
+        public async Task<ActionResult<List<Medicine>>> GetAllMedicine()
         {
             return Ok(await _context.Medicines.ToListAsync());
         }
@@ -87,11 +87,16 @@ namespace FinalProject.Controllers
         [HttpGet("getMedicineByUses")]
         public async Task<ActionResult<Medicine>> GetByUses(string uses)
         {
-            var medicine = await _context.Medicines.FirstOrDefaultAsync(e => e.Uses == uses);
+            if (uses == null)
+            {
+                return BadRequest("No uses added");
+            }
+            var medicine = await _context.Medicines.Where(e => e.Uses.Contains(uses)).ToListAsync();
             if(medicine == null)
             {
                 return BadRequest("There was no medicine found for that use");
             }
+
             return Ok(medicine);
         }
 

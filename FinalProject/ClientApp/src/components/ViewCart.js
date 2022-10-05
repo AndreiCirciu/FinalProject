@@ -24,14 +24,11 @@ export class ViewCart extends Component {
     }
 
     static renderMedicineTable(medicines) {
-        var totalPrice = 0;
-        totalPrice += medicines.price;
+
         return (
             <table className='table table-striped' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>User ID</th>
                         <th>Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -40,8 +37,6 @@ export class ViewCart extends Component {
                 <tbody>
                     {medicines.map(medicines =>
                         <tr key={medicines.id}>
-                            <td>{medicines.id}</td>
-                            <td>{medicines.userId}</td>
                             <td>{medicines.medicine.name}</td>
                             <td>{medicines.quantity}</td>
                             <td>{medicines.price}</td>
@@ -62,21 +57,17 @@ export class ViewCart extends Component {
         var urlDelete = "https://localhost:44368/api/Cart/removeFromCartByUserId" + "?userId=" + userId + "&medicineId=" + valueIdMed;
         console.log("anwjdbawhdbwahdwahdwahdwahvd");
         console.log(urlDelete);
-
         const responseDelete = await fetch(urlDelete, {
             method: 'PUT',
             headers: {
                 'accept': 'text/plain'
             }
         });
-        window.location.reload();
-        
+        window.location.reload();    
     }
 
-    
-
     render() {
-        let contents = this.state.loading ? <p><em>Loading...</em></p> : ViewCart.renderMedicineTable(this.state.medicines);
+        let contents = this.state.error === 404 ? <p><em>Loading...</em></p> : ViewCart.renderMedicineTable(this.state.medicines);
         return (
             <Fragment>
                 <AdminDashboard />
@@ -85,19 +76,49 @@ export class ViewCart extends Component {
                     <br />
                     <br />
                     {contents}
-
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <h3><button onClick={() => this.handleCheckout()}>  CHECKOUT </button> </h3>
                 </div>
             </Fragment>
         );
+    }
+
+    async handleCheckout() {
+        var userId = localStorage.getItem("ID");
+        var urlCheckout = "https://localhost:44368/api/Order/checkOut" + "?id=" + userId;
+        console.log(urlCheckout);
+        const responseDelete = await fetch(urlCheckout, {
+            method: 'PUT',
+            headers: {
+                'accept': 'text/plain'
+            }
+        });
+        
+        const dataCheckout = await responseDelete.json();
+        console.log(dataCheckout);
+
+
     }
 
     async populateMedicineData() {
         var userId = localStorage.getItem("ID");
         let url = "https://localhost:44368/api/Cart/getCartByUserId" + "?id=" + userId;
         console.log(url);
+        
         const response = await fetch(url);
         const data = await response.json();
+        const result = await response;
+        console.log(result.status)
+        this.setState({ error: result.status });
         console.log(data);
-        this.setState({ medicines: data, loading: false });
+        if (data != 404)
+        {
+            this.setState({ medicines: data, loading: false });
+        }
+          
     }
 }

@@ -11,46 +11,65 @@ export class SearchMedicine extends Component {
         super(props);
         this.state = {
             medicines: [], loading: true,
+            allMedicines: [],
             use: '',
             error: 0
         };
     }
+    componentDidMount() {
+        this.populateMedicineData();
+    }
 
     static renderMedicineTable(medicines) {
+        let reloadButton = localStorage.getItem('allmed') == 1 ? <button onClick={() => SearchMedicine.ReloadPage()}> See all medicines </button> : <p><em> </em> </p>;
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Company Name</th>
-                        <th>Price</th>
-                        <th> Quantity</th>
-                        <th>Image URL</th>
-                        <th>Uses (F)</th>
-                        <th>Expiration Date</th>
-                        <th>  </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <td>{medicines.id}</td>
-                    <td>{medicines.name}</td>
-                    <td>{medicines.companyName}</td>
-                    <td>{medicines.price}</td>
-                    <td>{medicines.quantity}</td>
-                    <td>{medicines.imageUrl}</td>
-                    <td>{medicines.uses}</td>
-                    <td>{medicines.expirationDate}</td>                 
+           
+            <Fragment>
+                <table className='table table-striped' aria-labelledby="tabelLabel">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Company Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Uses</th>
+                            <th>Expiration Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {medicines.map(medicines =>
+                            <tr key={medicines.id}>
+                                <td>{medicines.name}</td>
+                                <td>{medicines.companyName}</td>
+                                <td>{medicines.price}</td>
+                                <td>{medicines.quantity}</td>
+                                <td>{medicines.uses}</td>
+                                <td>{medicines.expirationDate}</td>
+                                <td> <button onClick={() => SearchMedicine.addToCart(medicines.id)}> Add </button> </td>
+                            </tr>
+                        )}
+                    
+                    </tbody>
 
-                </tbody>
-            </table>
+                </table>
+                {reloadButton}  
+            </Fragment>
+
         );
     }
+    static ReloadPage() {
+
+        localStorage.setItem("allmed", 0);
+        window.location.reload();
+
+    }
+
 
     async handleSave() {
         let data = {
             use: this.state.use,
         }
+        localStorage.setItem("allmed", 1);
 
 
         var url = "https://localhost:44368/api/Medicine/getMedicineByUses";
@@ -69,21 +88,22 @@ export class SearchMedicine extends Component {
 
         console.log(JSON.stringify(data));
 
-        /*const response = await fetch('https://localhost:44368/api/Account/getAllAccounts');
+        /*const response = await fetch('https://localhost:44368/api/Account/getAllMedicine');
         const data2 = await response.json();
         console.log(data2);*/
 
-        const response = await fetch(lastPart, {
+        const responseSearch = await fetch(lastPart, {
             method: 'GET',
             headers: {
                 'accept': 'text/plain',
             }
 
         });
-        const dataTable = await response.json();
+        const dataTable = await responseSearch.json();
+        console.log(dataTable);
         this.setState({ medicines: dataTable, loading: false });
-        console.log(response);
-        //  console.log(JSON.stringify(response));
+        console.log(responseSearch);
+        console.log(JSON.stringify(responseSearch));
         //const result = await response;
         // x;
         //this.setState({ error: result.status });
@@ -96,10 +116,11 @@ export class SearchMedicine extends Component {
         this.setState({ use: value });
     }
 
-    async addToCart() {
+    static addToCart = async (valueIdMed) => {
         var userId = localStorage.getItem("ID");
+        console.log("asdasdasd");
         console.log(userId);
-        let urlAddToCart = "https://localhost:44368/api/Cart/addToCart" + "?userId=" + userId + "&" + "medicineId=" +  this.state.medicines.id ;
+        let urlAddToCart = "https://localhost:44368/api/Cart/addToCart" + "?userId=" + userId + "&" + "medicineId=" + valueIdMed;
         console.log(urlAddToCart);
         const responseAddToCart = await fetch(urlAddToCart, {
             method: 'PUT',
@@ -108,11 +129,18 @@ export class SearchMedicine extends Component {
             }
         });
         console.log(responseAddToCart);
+        return (
+            <div> It was added </div>
+        );
+        const result = await responseAddToCart;
+        this.setState({ error: result.status });
 
     }
 
     render() {
         let contents = this.state.loading ? <p><em>Loading...</em></p> : SearchMedicine.renderMedicineTable(this.state.medicines);
+
+        // let wasAdded = this.state.error == 200 ? <h2> Medicine was added to cart</h2> : (this.state.error == 400 ? <p><em>Failed to add to cart.</em></p> : <p></p>);
         return (
             <Fragment>
                 <AdminDashboard />
@@ -122,15 +150,24 @@ export class SearchMedicine extends Component {
                     <br />
                     <input type="text" id='txtUse' placeholder="Enter Use" onChange={(e) => this.handleUseChange(e.target.value)} />
                     <br />
-                    <button onClick={() => this.handleSave()}> Save </button>
+                    <button onClick={() => this.handleSave()}> Search </button>
                     <br />
                     <br />
                     <br />
                     {contents}
-                    <button onClick={() => this.addToCart()}> Add to cart </button>
+
+                    {/*{wasAdded}*/}
                 </div>
             </Fragment>
         )
+    }
+    async populateMedicineData() {
+        const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine');
+
+        const info = await response.json();
+        console.log(info);
+        this.setState({ medicines: info, loading: false });
+
     }
 
 
