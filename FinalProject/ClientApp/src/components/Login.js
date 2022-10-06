@@ -3,6 +3,7 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link, Navigate } from 'react-router-dom';
 import './NavMenu.css';
 import { AdminDashboard } from './AdminDashboard';
+import jwt from "jwt-decode";
 
 export class Login extends Component {
 
@@ -22,10 +23,7 @@ export class Login extends Component {
         }
 
         let url = "https://localhost:44368/api/Auth/login";
-        let secondPart = "?username=" + this.state.username;
-        let urlIsAdmin = "https://localhost:44368/api/Auth/getIfAdminOrUser" + secondPart;
-        console.log(urlIsAdmin);
-        let urlReturnId = "https://localhost:44368/api/Auth/getUserId" + secondPart;
+
         console.log(url);
         console.log(JSON.stringify(data));
 
@@ -40,59 +38,45 @@ export class Login extends Component {
             },
             body: JSON.stringify(data)
         });
-
-        const responseIsAdmin = await fetch(urlIsAdmin, {
-            method: "GET",
-            headers: {
-                'accept': 'text/plain'
-            },
-
-        });
-
-        const responseId = await fetch(urlReturnId, {
-            method: "GET",
-            headers: {
-                'accept': 'text/plain'
-            },
-        });
-
-/*      console.log(urlReturnId);
-        console.log("RESPONSE");
-        console.log(response);
-        console.log("RESPONSE ISADMIN");
-        console.log(responseIsAdmin);*/
+     
         const result = await response;
-        const resultIsAdmin = await responseIsAdmin;
-        const user_id = await responseId;
 
         console.log(result.status);
 
         //token
+
         let jwtToken = await result.json();
+        console.log("asdasdasd");
         console.log(jwtToken.jwtToken);
         localStorage.setItem('jwtToken', jwtToken.jwtToken);
+        var token = '"' +  jwtToken.jwtToken +'"';
+        console.log("TOKENNNN");
+        console.log(token);
+        const decodeToken = jwt(token);
+        const role = decodeToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+        console.log("asdasdasdasdasd");
+        console.log(role);
+        const userid = decodeToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+        console.log("asdasdasdasdasd");
+        console.log(userid);
 
+        if (role == "Admin") {
+            localStorage.setItem('isAdmin', 1);
+        }
+        else {
+            localStorage.setItem('isAdmin', 0);
+        }
 
         console.log(result.statusText);
-
-        //isAdmin
-        let isadmin = await resultIsAdmin.json();
-        //console.log(isadmin.isadmin);
-        localStorage.setItem('isAdmin', isadmin.isadmin);
+        
         console.log("ESTE");
         console.log(localStorage.getItem("isAdmin"));
 
 
         this.setState({ error: result.status });
 
-        console.log(urlReturnId);
-        console.log(isadmin); 
-        console.log(responseId);
-
-
-        let userid = await user_id.json();
-        localStorage.setItem("ID", userid.userid);
-        console.log("ESTE");
+       // let userid = await user_id.json();
+        localStorage.setItem("ID", userid);
         console.log(localStorage.getItem("ID"));
     }
 

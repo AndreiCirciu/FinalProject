@@ -10,7 +10,7 @@ export class SetAccount extends Component {
             dateofbirth: '',
             phone: '',
             address: '',
-            funds: 0,
+            funds: 1000,
             isadmin: 0,
             error:0
         };
@@ -107,14 +107,6 @@ export class SetAccount extends Component {
                 <br />
                 <label> Address </label>
                 <input type="text" id='txtAddress' placeholder="Enter Address" onChange={(e) => this.handleAddressChange(e.target.value)} />
-                <br />
-                <br />
-                <label> Funds </label>
-                <input type="text" id='txtFunds' placeholder="Enter your Funds" onChange={(e) => this.handleFundsChange(e.target.value)} />
-                <br />
-                <br />
-                <label> Are you an admin? </label>
-                <input type="text" id='txtIsAdmin' placeholder="1/0" onChange={(e) => this.handleIsAdminChange(e.target.value)} />
                 <br />
                 <br />
                 <button onClick={() => this.handleSave()}> Save </button>

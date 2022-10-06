@@ -100,6 +100,7 @@ export class ViewCart extends Component {
         
         const dataCheckout = await responseDelete.json();
         console.log(dataCheckout);
+        window.location.reload();
 
 
     }

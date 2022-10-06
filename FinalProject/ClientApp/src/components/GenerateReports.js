@@ -26,14 +26,12 @@ export class GenerateReports extends Component {
                 <table className='table table-striped' aria-labelledby="tabelLabel">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
                             <th>Company Name</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Image URL</th>
                             <th>Uses</th>
-                            <th>Expiration Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +43,6 @@ export class GenerateReports extends Component {
                                 <td>{accounts.quantity}</td>
                                 <td>{accounts.imageUrl}</td>
                                 <td>{accounts.uses}</td>
-                                <td>{accounts.expirationDate}</td>
                             </tr>
                         )}
                     </tbody>
