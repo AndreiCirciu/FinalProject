@@ -133,10 +133,11 @@ export class UpdateAccount extends Component {
         }
 
         let urlUpdateById = "https://localhost:44368/api/Account/updateAccount";
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
         const responsePut = await fetch(urlUpdateById, {
             method: 'PUT',
             headers: {
-                'accept': 'text/plain',
+                'Authorization': authToken,
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -144,15 +145,19 @@ export class UpdateAccount extends Component {
         console.log(data);
         const resultPut = await responsePut;
         console.log(resultPut.status);
-       // window.location.reload();
-        /*setTimeout(function () { alert("Medicine updated! Please refresh!"); }, 1000);*/
-
+        window.location.reload();
 
     }
     async populateAccountData() {
         var userId = localStorage.getItem("ID");
         var urlGetAccountById = "https://localhost:44368/api/Account/getAccountById" + "?id=" + userId;
-        const response = await fetch(urlGetAccountById);
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
+        const response = await fetch(urlGetAccountById, {
+            method: "GET",
+            headers: {
+                'Authorization': authToken
+            }
+        });
         const data = await response.json();
         this.setState({ account: data, loading: false });
     }

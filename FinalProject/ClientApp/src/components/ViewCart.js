@@ -55,11 +55,11 @@ export class ViewCart extends Component {
         console.log(valueIdMed);
         var userId = localStorage.getItem("ID");
         var urlDelete = "https://localhost:44368/api/Cart/removeFromCartByUserId" + "?userId=" + userId + "&medicineId=" + valueIdMed;
-        console.log("anwjdbawhdbwahdwahdwahdwahvd");
-        console.log(urlDelete);
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
         const responseDelete = await fetch(urlDelete, {
             method: 'PUT',
             headers: {
+                'Authorization': authToken,
                 'accept': 'text/plain'
             }
         });
@@ -90,16 +90,17 @@ export class ViewCart extends Component {
     async handleCheckout() {
         var userId = localStorage.getItem("ID");
         var urlCheckout = "https://localhost:44368/api/Order/checkOut" + "?id=" + userId;
-        console.log(urlCheckout);
+
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
         const responseDelete = await fetch(urlCheckout, {
             method: 'PUT',
             headers: {
+                'Authorization': authToken,
                 'accept': 'text/plain'
             }
         });
         
         const dataCheckout = await responseDelete.json();
-        console.log(dataCheckout);
         window.location.reload();
 
 
@@ -109,11 +110,15 @@ export class ViewCart extends Component {
         var userId = localStorage.getItem("ID");
         let url = "https://localhost:44368/api/Cart/getCartByUserId" + "?id=" + userId;
         console.log(url);
-        
-        const response = await fetch(url);
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': authToken,
+            },
+        });
         const data = await response.json();
         const result = await response;
-        console.log(result.status)
         this.setState({ error: result.status });
         console.log(data);
         if (data != 404)

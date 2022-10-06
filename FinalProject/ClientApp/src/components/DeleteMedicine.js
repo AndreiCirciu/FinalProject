@@ -81,10 +81,12 @@ export class DeleteMedicine extends Component {
         
         let url = "https://localhost:44368/api/Medicine/deleteMedicineById" + "?id=" + this.state.id;
         console.log(url);  
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
 
         const responseDelete = await fetch(url, {
             method: 'DELETE',
             headers: {
+                'Authorization': authToken,
                 'accept': 'text/plain'
             }
         });
@@ -92,7 +94,13 @@ export class DeleteMedicine extends Component {
 
     }
     async populateMedicineData() {
-        const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine');
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
+        const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine', {
+            method: "GET",
+            headers: {
+                'Authorization': authToken
+            }
+        });
         const data = await response.json();
         this.setState({ medicines: data, loading: false });
         

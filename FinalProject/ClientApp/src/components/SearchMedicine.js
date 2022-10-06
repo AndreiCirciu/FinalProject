@@ -91,10 +91,12 @@ export class SearchMedicine extends Component {
         /*const response = await fetch('https://localhost:44368/api/Account/getAllMedicine');
         const data2 = await response.json();
         console.log(data2);*/
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
 
         const responseSearch = await fetch(lastPart, {
             method: 'GET',
             headers: {
+                'Authorization': authToken,
                 'accept': 'text/plain',
             }
 
@@ -122,9 +124,11 @@ export class SearchMedicine extends Component {
         console.log(userId);
         let urlAddToCart = "https://localhost:44368/api/Cart/addToCart" + "?userId=" + userId + "&" + "medicineId=" + valueIdMed;
         console.log(urlAddToCart);
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
         const responseAddToCart = await fetch(urlAddToCart, {
             method: 'PUT',
             headers: {
+                'Authorization': authToken,
                 'accept': 'text/plain',
             }
         });
@@ -162,7 +166,13 @@ export class SearchMedicine extends Component {
         )
     }
     async populateMedicineData() {
-        const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine');
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
+        const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine', {
+            method: "GET",
+            headers: {
+                'Authorization': authToken
+            }
+        });
 
         const info = await response.json();
         console.log(info);

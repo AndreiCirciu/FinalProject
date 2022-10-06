@@ -14,7 +14,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("getCartByUserId")]
-       // [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<List<Cart>>> GetCartByUserId(int id)
         {
             var cart = await _context.Carts.Include(c=> c.Medicine).Where(c => c.UserId == id).ToArrayAsync();
@@ -22,6 +22,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpPut("addToCart")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<Cart>> AddToCart(int userId, int medicineId)
         {
             var medicine = await _context.Medicines.FirstOrDefaultAsync(p => p.ID == medicineId);
@@ -75,6 +76,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpPut("removeFromCartByUserId")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<Cart>> RemoveFromCart(int userId, int medicineId)
         {
             var user = await _context.Accounts.FirstOrDefaultAsync(c => c.ID == userId);

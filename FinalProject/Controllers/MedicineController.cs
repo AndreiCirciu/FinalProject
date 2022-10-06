@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.Controllers
@@ -50,6 +50,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpPost("addMedicine")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Medicine>>> AddMedicine(Medicine medicine)
         {
             _context.Medicines.Add(medicine);
@@ -59,6 +60,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpPut("updateMedicine")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Medicine>>> UpdateMedicine(Medicine request)
         {
             var dbMedicine = await _context.Medicines.FindAsync(request.ID);
@@ -79,12 +81,14 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("getAllMedicine")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<List<Medicine>>> GetAllMedicine()
         {
             return Ok(await _context.Medicines.ToListAsync());
         }
 
         [HttpGet("getMedicineByUses")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<Medicine>> GetByUses(string uses)
         {
             if (uses == null)
@@ -101,6 +105,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("getMedicineById")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<Medicine>> Get(int id)
         {
             var medicine = await _context.Medicines.FindAsync(id);
@@ -110,6 +115,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpDelete("deleteMedicineById")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Medicine>>> Delete(int id)
         {
             var dbMedicine = await _context.Medicines.FindAsync(id);

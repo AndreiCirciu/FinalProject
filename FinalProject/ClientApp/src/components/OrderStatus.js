@@ -58,7 +58,13 @@ export class OrderStatus extends Component {
     async populateOrdersData() {
         var userId = localStorage.getItem("ID");
         var urlCheckout = "https://localhost:44368/api/Order/getOrderByUserId" + "?id=" + userId;
-        const response = await fetch(urlCheckout);
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
+        const response = await fetch(urlCheckout, {
+            method: "GET",
+            headers: {
+                'Authorization': authToken
+            }
+        });
         const data = await response.json();
         this.setState({ orders: data, loading: false });
         

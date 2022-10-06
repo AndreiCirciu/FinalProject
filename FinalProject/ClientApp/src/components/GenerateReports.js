@@ -59,7 +59,7 @@ export class GenerateReports extends Component {
                             <th>Price</th>
                             <th>Status</th>
                             <th>Time</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,7 @@ export class GenerateReports extends Component {
                                 <td>{accounts.price}</td>
                                 <td>{accounts.status}</td>
                                 <td>{accounts.time}</td>
-                                
+
                             </tr>
                         )}
                     </tbody>
@@ -103,9 +103,11 @@ export class GenerateReports extends Component {
             console.log(url)
             localStorage.setItem('report', this.state.valueReport);
         }
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
         const responsePut = await fetch(url, {
             method: 'PUT',
             headers: {
+                'Authorization': authToken,
                 'accept': 'text/plain',
             },
         });
@@ -121,30 +123,30 @@ export class GenerateReports extends Component {
         console.log(this.state.valuePeriod);
         return (
             <Fragment>
-                <AdminDashboard />  
+                <AdminDashboard />
                 <div style={{ textAlign: 'center' }}>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm-12">                                
-                                    <label>
-                                        Choose the type of the reports
+                            <div className="col-sm-12">
+                                <label>
+                                    Choose the type of the reports
                                     <select onChange={(e) => this.handleChangeReports(e.target.value)}>
-                                            <option value="Stock">Stocks</option>
-                                            <option value="Sales">Sales</option>
-                                        </select>
-                                </label>
-                                <br/>
-                                    <label>
-                                        Choose the period
-                                        <select onChange={(e) => this.handleChangePeriod(e.target.value)}>
-                                            <option value="Weekly">Weekly</option>
-                                            <option value="Monthly">Monthly</option>
-                                            <option value="Yearly">Yearly</option>
-                                        </select>
+                                        <option value="Stock">Stocks</option>
+                                        <option value="Sales">Sales</option>
+                                    </select>
                                 </label>
                                 <br />
-                                    <button onClick={() => this.handleSave()}> Submit </button>
-                               
+                                <label>
+                                    Choose the period
+                                    <select onChange={(e) => this.handleChangePeriod(e.target.value)}>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Yearly">Yearly</option>
+                                    </select>
+                                </label>
+                                <br />
+                                <button onClick={() => this.handleSave()}> Submit </button>
+
                             </div>
                         </div>
                     </div>
@@ -154,15 +156,4 @@ export class GenerateReports extends Component {
             </Fragment>
         );
     }
-
-    
-
-
-
-
-/*async populateAccountsData() {
-    const response = await fetch('https://localhost:44368/api/Account/getAllAccounts');
-    const data = await response.json();
-    this.setState({ accounts: data, loading: false });
-}*/
 }

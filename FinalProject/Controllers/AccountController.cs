@@ -22,6 +22,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpPut("updateAccount")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<List<Account>>> UpdateAccount(Account request)
         {
             var dbAccount = await _context.Accounts.FindAsync(request.ID);
@@ -52,6 +53,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("getAccountById")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<Account>> GetAccountById(int id)
         {
             var account = await _context.Accounts.FindAsync(id);
@@ -61,6 +63,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpDelete("deleteAccountById")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Account>>> Delete(int id)
         {
             var dbAccount = await _context.Accounts.FindAsync(id);

@@ -14,7 +14,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("getOrderByUserId")]
-       // [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<Order>> GetOrderByUserId(int id)
         {
             var order = await _context.Orders.Where(o => o.userId == id).ToListAsync();
@@ -33,7 +33,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpPut("checkOut")]
-       // [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<ActionResult<Order>> Checkout(int id)
         {
             var carts = await _context.Carts.Where(c => c.UserId == id).ToListAsync();
@@ -90,7 +90,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpPut("generateReports")]
-        // [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GenerateReports>> GenerateReports(bool sales, bool stock, string range)
         {
             List<Medicine> medicines = new();

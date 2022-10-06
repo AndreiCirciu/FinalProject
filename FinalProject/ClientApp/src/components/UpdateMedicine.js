@@ -125,10 +125,13 @@ export class UpdateMedicine extends Component {
         /*const response = await fetch('https://localhost:44368/api/Account/getAllAccounts');
         const data2 = await response.json();
         console.log(data2);*/
+        let authToken = "bearer " + localStorage.getItem("jwtToken");
+
 
         const responseGet = await fetch(url, {
             method: 'GET',
             headers: {
+                'Authorization': authToken,
                 'accept': 'text/plain',
             }
         });
@@ -149,10 +152,12 @@ export class UpdateMedicine extends Component {
             expirationDate: dataGet.expirationDate
         }
         let urlUpdateById = "https://localhost:44368/api/Medicine/updateMedicine";
+       
+
         const responsePut = await fetch(urlUpdateById, {
             method: 'PUT',
             headers: {
-                'accept': 'text/plain',
+                'Authorization': authToken,
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(finalData)
@@ -165,7 +170,13 @@ export class UpdateMedicine extends Component {
 
     }
         async populateMedicineData() {
-            const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine');
+            let authToken = "bearer " + localStorage.getItem("jwtToken");
+            const response = await fetch('https://localhost:44368/api/Medicine/getAllMedicine', {
+                method: "GET",
+                headers: {
+                    'Authorization': authToken
+                }
+            });
             const data = await response.json();
             this.setState({ medicines: data, loading: false });
         }

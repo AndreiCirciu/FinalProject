@@ -74,7 +74,7 @@ namespace FinalProject.Controllers
         
 
         [HttpGet("getIfAdminOrUser")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Account>> GetByUses(string username)
         {
             var user = await _context.Users.FirstOrDefaultAsync(p => p.Username == username);
@@ -88,7 +88,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("getUserId")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Account>> GetId(string username)
         {
             var user = await _context.Users.FirstOrDefaultAsync(p => p.Username == username);
